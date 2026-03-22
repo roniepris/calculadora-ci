@@ -5,6 +5,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  release:
+    types: [ published ]
 
 jobs:
   build-test-package:
@@ -45,7 +47,7 @@ jobs:
       run: |
         pip install pytest build twine
 
-    # ✅ 6. Instalar o pacote local (CORREÇÃO PRINCIPAL)
+    # 6. Instalar pacote local (necessário para estrutura src/)
     - name: Instalar pacote local
       run: pip install -e .
 
@@ -53,7 +55,7 @@ jobs:
     - name: Executar testes
       run: pytest
 
-    # 8. Gerar pacote
+    # 8. Gerar pacote (Package)
     - name: Build do pacote
       run: python -m build
 
@@ -64,9 +66,9 @@ jobs:
         name: pacote-python-${{ matrix.python-version }}
         path: dist/
 
-    # 10. Publicação (opcional)
-    - name: Publicar pacote
-      if: github.ref == 'refs/heads/main'
+    # 10. Publicar pacote (APENAS em release)
+    - name: Publicar pacote no PyPI
+      if: github.event_name == 'release'
       run: python -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
