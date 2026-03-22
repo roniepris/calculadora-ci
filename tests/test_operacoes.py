@@ -10,4 +10,4 @@ def test_multiplicacao():
   assert multiplicacao(4,2) == 8
 
 def test_divisao():
-  assert divisao(10,2) == 2
+  assert divisao(10,2) == 5
