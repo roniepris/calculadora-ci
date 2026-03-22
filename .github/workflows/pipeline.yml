@@ -1,0 +1,38 @@
+name: Pipeline CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  build-test-package:
+  
+    runs-on: ubuntu-latest
+    
+    steps:
+
+    - name: Checkout código
+      uses: actions/checkout@v3
+    
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+    
+    - name: Instalar dependências
+      run: |
+        pip install pytest
+        pip install build
+
+    - name: Executar testes
+      run: pytest
+
+    - name: Build do pacote
+      run: python -m build
+
+    - name: Upload do artefato
+      uses: actions/upload-artifact@v3
+      with:
+        name: pacote-python
+        path: dist/
