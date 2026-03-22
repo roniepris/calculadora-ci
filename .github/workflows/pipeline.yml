@@ -27,7 +27,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # 3. Cache de dependências (melhora performance)
+    # 3. Cache de dependências
     - name: Cache de dependências
       uses: actions/cache@v4
       with:
@@ -45,26 +45,29 @@ jobs:
       run: |
         pip install pytest build twine
 
-    # 6. Executar testes
+    # ✅ 6. Instalar o pacote local (CORREÇÃO PRINCIPAL)
+    - name: Instalar pacote local
+      run: pip install -e .
+
+    # 7. Executar testes
     - name: Executar testes
       run: pytest
 
-    # 7. Gerar pacote (Package)
+    # 8. Gerar pacote
     - name: Build do pacote
       run: python -m build
 
-    # 8. Upload do artefato
+    # 9. Upload do artefato
     - name: Upload do artefato
       uses: actions/upload-artifact@v4
       with:
         name: pacote-python-${{ matrix.python-version }}
         path: dist/
 
-    # 9. Publicação (opcional - apenas na branch main)
+    # 10. Publicação (opcional)
     - name: Publicar pacote
       if: github.ref == 'refs/heads/main'
-      run: |
-        python -m twine upload dist/*
+      run: python -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
