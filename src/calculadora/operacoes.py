@@ -19,7 +19,7 @@ def multiplicacao(a: Numero, b: Numero) -> Numero:
 
 
 def divisao(a: Numero, b: Numero) -> Numero:
-    """Retorna a divisão entre dois números.
+    """Retorna a divisao entre dois números.
 
     Levanta:
         ValueError: se o divisor for zero.
