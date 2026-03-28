@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.10", "3.11"]
+        python-version: ["3.11"]
 
     steps:
 
@@ -76,7 +76,7 @@ jobs:
         
     # 11. Publicar no Pypi
     - name: Publicar no PyPI
-      run: twine upload dist/*
+      run: python -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
