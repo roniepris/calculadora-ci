@@ -67,12 +67,12 @@ jobs:
         path: dist/
 
     # 10. Publicar pacote (APENAS em release)
-    - name: Publicar pacote no PyPI
-      if: github.event_name == 'release'
-      run: python -m twine upload dist/*
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+#    - name: Publicar pacote no PyPI
+#      if: github.event_name == 'release'
+#      run: python -m twine upload dist/*
+#      env:
+#        TWINE_USERNAME: __token__
+#        TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
         
     # 11. Publicar no Pypi
     - name: Publicar no PyPI
