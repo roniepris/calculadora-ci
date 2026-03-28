@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "calculadora-ci"
-version = "0.1.0"
+version = "0.1.1"
 description = "Biblioteca de calculadora"
 authors = [
   {name="Equipe Dev"}
